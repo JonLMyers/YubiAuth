@@ -1,5 +1,4 @@
-from app import create_app
+""" Runs the server """
+from aaxus import app
 
-if __name__ == '__main__':
-    APP = create_app()
-    APP.run(debug=True)
+app.run()
