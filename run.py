@@ -1,4 +1,4 @@
 """ Runs the server """
-from aaxus import app
+from app import app
 
 app.run()
