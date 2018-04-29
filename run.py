@@ -1,4 +1,4 @@
 """ Runs the server """
-from app import app
+from app import APP
 
-app.run()
+APP.run()

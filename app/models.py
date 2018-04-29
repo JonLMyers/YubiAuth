@@ -2,7 +2,7 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from mongoengine import *
 import datetime
-import config
+import app.config
 import jwt
 
 class User(Document):
