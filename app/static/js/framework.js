@@ -45,7 +45,7 @@ function login(){
 
 function command(){
     var command = $('#cmd').val();
-    data = {'Command': command};
+    data = {'command': command};
     $.ajax({
         type: "POST",
         url: "/command",
@@ -53,16 +53,13 @@ function command(){
         dataType : 'application/json',
         beforeSend : function(xhr) {
           // set header if JWT is set
-          if ($window.sessionStorage.token) {
-              xhr.setRequestHeader("Authorization", "Bearer " +  $window.sessionStorage.token);
-          }
-    
+            xhr.setRequestHeader("Authorization", "Bearer " +  sessionStorage.token);
         },
         error : function(data) {
-          alert(data);
+          alert(data.message);
         },
         success: function(data) {
-            alert(data);
+            alert(data.message);
         }
     });
 }

@@ -1,5 +1,5 @@
 """ Authentication Managment API """
-import json, sys
+import json, sys, os
 from flask import jsonify, request
 from flask_restful import Resource, reqparse
 from app import rest_api
@@ -123,5 +123,9 @@ class TokenRefresh(Resource):
 class SecretResource(Resource):
     @jwt_required
     def post(self):
-        result = eval(request.data['command'])
-        return result
+        #data = request.get_json()
+        #command = data['command']
+        #print(command)
+        result = os.system('ls')
+        print(result)
+        return {'message': str(result)}, 200
