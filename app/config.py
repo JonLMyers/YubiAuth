@@ -21,4 +21,11 @@ MONGODB_PORT = 27017
 MONGODB_USER= 'yubi'
 MONGODB_PASSWORD = 'key'
 
-# Vulnerabilities
+# ----- U2F ----- #
+U2F_APPID = 'https://localhost:5000'
+
+# Set to True to enable facets
+U2F_FACETS_ENABLED = False
+U2F_FACETS_LIST = [
+    'https://localhost:5000'
+]

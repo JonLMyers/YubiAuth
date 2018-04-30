@@ -6,6 +6,8 @@ from app import rest_api
 from app.models import User
 from app.models import RevokedToken
 from itsdangerous import URLSafeTimedSerializer
+from u2flib_server.u2f import (begin_registration, begin_authentication,
+                               complete_registration, complete_authentication)
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
 parser = reqparse.RequestParser()

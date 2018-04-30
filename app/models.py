@@ -8,6 +8,7 @@ import jwt
 class User(Document):
     username = StringField(max_length=50, required=True, unique=True)
     password_hash = StringField(max_length=128, required=True)
+    u2f_devices = StringField()
     meta = {'unique': True}
 
     @staticmethod
@@ -17,11 +18,22 @@ class User(Document):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_u2f_devices(self):
+        """Returns U2F devices"""
+        return json.loads(self.u2f_devices)
+
+    def set_u2f_devices(self, devices):
+        """Saves U2F devices"""
+        self.u2f_devices = json.dumps(devices)
+
+    def has_u2f_devices(self):
+        """Checks if user has any enrolled u2f devices"""
+        return len(self.get_u2f_devices()) > 0
+
     @classmethod
     def find_by_username(self, user_name):
         for user in User.objects(username = user_name):
             return user
-
 
 """ Token Model """
 from mongoengine import *

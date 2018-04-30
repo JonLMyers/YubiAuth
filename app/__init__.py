@@ -10,8 +10,10 @@ CORS(APP)
 APP.config.from_object('app.config')
 APP.config['JWT_BLACKLIST_ENABLED'] = True
 APP.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+
 jwt = JWTManager(APP)
 rest_api = Api(APP)
+
 db = connect('mongoenginetest', host='mongomock://localhost')
 
 import app.api
@@ -32,7 +34,9 @@ def authenticator():
 
 @APP.route('/security')
 def security():
+    """Security (U2F) options."""
     return render_template('security.html')
+
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
