@@ -13,7 +13,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_r
 parser = reqparse.RequestParser()
 parser.add_argument('username', help = 'This field cannot be blank', required = True)
 parser.add_argument('password', help = 'This field cannot be blank', required = True)
-parser.add_argument('yubikey', help = 'This is needed to use the forge', required = False)
+parser.add_argument('yubikey', help = 'This is needed to use the forge', required = True)
 
 class UserRegistration(Resource):
     def post(self):
@@ -26,7 +26,8 @@ class UserRegistration(Resource):
         
         new_user = User(
             username = data['username'],
-            password_hash = User.hash_password(data['password'])
+            password_hash = User.hash_password(data['password']),
+            yubikey_id = data['yubikey']
         )
 
         try:

@@ -8,7 +8,7 @@ import jwt
 class User(Document):
     username = StringField(max_length=50, required=True, unique=True)
     password_hash = StringField(max_length=128, required=True)
-    u2f_devices = StringField()
+    yubikey_id = StringField(max_length=20, required=True)
     meta = {'unique': True}
 
     @staticmethod

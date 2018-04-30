@@ -2,7 +2,8 @@ function register(){
     var response;
     var username = $('#usr').val();
     var password = $('#pwd').val();
-    var data = {'username': username, 'password': password};
+    var otp = $('#otp').val();
+    var data = {'username': username, 'password': password, 'yubikey': otp};
 
     $.ajax({
         type: "POST",
