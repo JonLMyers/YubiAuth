@@ -43,6 +43,51 @@ function login(){
     });
 }
 
+function command(){
+    var command = $('#cmd').val();
+    data = {'Command': command};
+    $.ajax({
+        type: "POST",
+        url: "/command",
+        data: JSON.stringify(data),
+        dataType : 'application/json',
+        beforeSend : function(xhr) {
+          // set header if JWT is set
+          if ($window.sessionStorage.token) {
+              xhr.setRequestHeader("Authorization", "Bearer " +  $window.sessionStorage.token);
+          }
+    
+        },
+        error : function(data) {
+          alert(data);
+        },
+        success: function(data) {
+            alert(data);
+        }
+    });
+}
+
+function logout(){
+    $.ajax({
+        url: "/logout",
+        dataType : 'application/json',
+        beforeSend : function(xhr) {
+          // set header if JWT is set
+          if ($window.sessionStorage.token) {
+              xhr.setRequestHeader("Authorization", "Bearer " +  $window.sessionStorage.token);
+          }
+    
+        },
+        error : function(data) {
+          alert(data)
+        },
+        success: function(data) {
+            alert("Logged out")
+            window.location.href = '/';
+        }
+    });
+}
+
 function register_device(){
     var response;
     var username = $('#usr').val();

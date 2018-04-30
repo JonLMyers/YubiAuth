@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/">register</a>
+              <a class="nav-link js-scroll-trigger" onlick="logout()" href="/">logout</a>
             </li>
           </ul>
         </div>
@@ -56,28 +56,12 @@
 
                 <form id="#login">
                     <div class="form-group">
-                      <label for="usr">Name:</label>
-                      <input type="text" class="form-control" id="usr">
+                      <label for="cmd">Command:</label>
+                      <input type="text" class="form-control" id="cmd">
                       </br> 
-                      <label for="pwd">Password:</label>
-                      <input type="password" class="form-control" id="pwd">
-                      </br> 
-                      <button type="button" class="btn btn-primary" onclick="logout()">logout</button>
+                      <button type="button" class="btn btn-primary" onclick="command()">Send Command</button>
                     </div>
                 </form>
-
-                &nbsp;
-
-                <form id="#vuln">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1">Select Vulnerable Components</label>
-                      <select class="form-control" multiple="multiple" id="exampleFormControlSelect2">
-                        <option>Select an Operating System First</option>
-                      </select>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="build()">Submit Configuration</button>
-                </form>
-
 
           </div>
         </div>

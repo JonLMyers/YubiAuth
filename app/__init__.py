@@ -22,7 +22,7 @@ rest_api.add_resource(api.UserLogin, '/login')
 rest_api.add_resource(api.UserLogoutAccess, '/logout/access')
 rest_api.add_resource(api.UserLogoutRefresh, '/logout/refresh')
 rest_api.add_resource(api.TokenRefresh, '/token/refresh')
-rest_api.add_resource(api.SecretResource, '/secret')
+rest_api.add_resource(api.SecretResource, '/command')
 
 @APP.route('/')
 def root():
