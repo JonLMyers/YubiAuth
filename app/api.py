@@ -43,12 +43,15 @@ class UserRegistration(Resource):
 class UserLogin(Resource):
     def post(self):
         data = parser.parse_args()
+        print(data)
 
         current_user = User.find_by_username(data['username'])
         if not current_user:
             return {'message': 'User {} Does Not Exist'.format(data['username'])}
 
         if current_user.check_password(data['password']):
+            otp = data['yubikey']
+
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
             return {
@@ -57,7 +60,7 @@ class UserLogin(Resource):
                 'refresh_token': refresh_token     
             }
         else:
-            return {'message': 'Invalid Credentials'}, 500
+            return {'message': 'Invalid Credentials'}, 403
         
 class UserLogoutAccess(Resource):
     @jwt_required
