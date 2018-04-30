@@ -76,7 +76,7 @@ class UserLogin(Resource):
                 sys.exit(1)
 
             if status:
-
+                print('OTP: ' + str(status))
                 access_token = create_access_token(identity = data['username'])
                 refresh_token = create_refresh_token(identity = data['username'])
                 return {
