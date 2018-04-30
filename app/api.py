@@ -57,6 +57,8 @@ class UserLogin(Resource):
 
         if current_user.check_password(data['password']):
             otp = data['yubikey']
+            if current_user.yubikey_id != otp[0:12]:
+                return {'message': 'Yubikey OTP ID not affiliated with user.'}, 403
 
             client = Yubico(33781, None)
             
