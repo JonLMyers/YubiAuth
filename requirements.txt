@@ -6,8 +6,10 @@ cffi==1.11.5
 chardet==3.0.4
 click==6.7
 cryptography==2.2.2
+enum34==1.1.6
 Flask==1.0
 Flask-Cors==3.0.4
+Flask-FIDO-U2F==0.4.4
 Flask-JWT-Extended==3.8.1
 Flask-RESTful==0.3.6
 idna==2.6
@@ -23,10 +25,11 @@ pycparser==2.18
 PyJWT==1.6.1
 pymongo==3.6.1
 pyOpenSSL==17.5.0
+python-u2flib-server==5.0.0
 pytz==2018.4
 requests==2.18.4
 sentinels==1.0.0
 six==1.11.0
 urllib3==1.22
 Werkzeug==0.14.1
-flask_fido_u2f
+yubico-client==1.10.0

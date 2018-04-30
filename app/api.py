@@ -1,14 +1,15 @@
 """ Authentication Managment API """
-import json
+import json, sys
 from flask import jsonify, request
 from flask_restful import Resource, reqparse
 from app import rest_api
 from app.models import User
 from app.models import RevokedToken
 from itsdangerous import URLSafeTimedSerializer
-from u2flib_server.u2f import (begin_registration, begin_authentication,
-                               complete_registration, complete_authentication)
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
+from yubico_client import Yubico
+from yubico_client import yubico_exceptions
+from yubico_client.py3 import PY3
 
 parser = reqparse.RequestParser()
 parser.add_argument('username', help = 'This field cannot be blank', required = True)
@@ -57,16 +58,37 @@ class UserLogin(Resource):
         if current_user.check_password(data['password']):
             otp = data['yubikey']
 
-            access_token = create_access_token(identity = data['username'])
-            refresh_token = create_refresh_token(identity = data['username'])
-            return {
-                'message': 'Logged in as {}'.format(data['username']),
-                'access_token': access_token,
-                'refresh_token': refresh_token     
-            }
+            client = Yubico(33781, None)
+            
+            status = False
+            try:
+                status = client.verify(otp)
+            except yubico_exceptions.InvalidClientIdError:
+                e = sys.exc_info()[1]
+                print('Client with id %s does not exist' % (e.client_id))
+                sys.exit(1)
+            except yubico_exceptions.SignatureVerificationError:
+                print('Signature verification failed')
+                sys.exit(1)
+            except yubico_exceptions.StatusCodeError:
+                e = sys.exc_info()[1]
+                print('Negative status code was returned: %s' % (e.status_code))
+                sys.exit(1)
+
+            if status:
+
+                access_token = create_access_token(identity = data['username'])
+                refresh_token = create_refresh_token(identity = data['username'])
+                return {
+                    'message': 'Logged in as {}'.format(data['username']),
+                    'access_token': access_token,
+                    'refresh_token': refresh_token     
+                }
+            else:
+                return {'message': "Invalid OTP"}, 403
         else:
             return {'message': 'Invalid Credentials'}, 403
-        
+ 
 class UserLogoutAccess(Resource):
     @jwt_required
     def post(self):
