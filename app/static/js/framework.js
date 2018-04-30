@@ -20,7 +20,7 @@ function login(){
     var response;
     var username = $('#usr').val();
     var password = $('#pwd').val();
-    var otp = $('#yubikey').val();
+    var otp = $('#otp').val();
     var data = {'username': username, 'password': password, 'yubikey': otp};
 
     $.ajax({
